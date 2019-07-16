@@ -90,6 +90,7 @@
 }
 .lbt .dot{
     position: absolute;
+    opacity: 0.5;
     bottom: 2%;
     left: 50%;
     transform: translateX(-50%);
