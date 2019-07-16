@@ -76,7 +76,7 @@
     list-style: none;
 }
 
-.lbt ul li img{
+.lbt img{
     position: absolute;
     right: -50%;
     opacity: 0;
@@ -84,7 +84,7 @@
     height: auto;
     transition: all 1s;
 }
-.lbt ul .b-active img{
+.lbt .b-active img{
     opacity: 1;
     right: 0;
 }
