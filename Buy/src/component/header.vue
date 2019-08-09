@@ -22,6 +22,12 @@ export default {
         },
         goIndex(){
             this.$router.push({name: 'index'})
+        },
+        checkRouter(){
+            console.log(this.$route)
+            if(this.$router.fullPath != '/index'){
+                this.shouye = true
+            }
         }
     },
     watch:{
@@ -51,8 +57,16 @@ export default {
                 this.flag = true
                 this.path = from.name
                 this.title = 'backpackerThings'
+            }else if(to.name == 'goodsInfo'){
+                this.shouye = true
+                this.flag = true
+                this.path = from.name
+                this.title = 'goodsInfo'
             }
         }
+    },
+    created(){
+        this.checkRouter()
     }
 }
 </script>

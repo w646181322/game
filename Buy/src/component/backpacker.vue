@@ -10,7 +10,7 @@
         </a>
         <a class="mui-tab-item" href="#tabbar-with-contact">
             <span class="mui-icon mui-icon-extra mui-icon-extra-gold"></span>
-            <span class="mui-tab-label">1000</span>
+            <span class="mui-tab-label">{{$store.state.money}}</span>
         </a>
 
     </nav>

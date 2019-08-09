@@ -7,15 +7,10 @@
             <div class="snacksShop">
                 <input type="text" class="search" @keyup=sreach ref="search" placeholder="搜索你想要的物品">
                 <ul class="mui-table-view">
-                    <li class="mui-table-view-cell" v-for="(val,key) in snacksList" :key="key">
+                    <li class="mui-table-view-cell" v-for="(val,key) in snacksList" :key="key" @click="goToInfo(key,val,'snacks')">
                         <span class="text">{{key}}</span>
-                        <span class="text value">￥{{val[0]}}</span>
                         <span class="text store">库存：{{val[1]}}</span>
-                        <div class="mui-numbox right" data-numbox-step='1' data-numbox-min='0' :data-numbox-max='val[1]'>
-                            <button class="mui-btn mui-numbox-btn-minus" type="button" @click="decrease(key)">-</button>
-                            <input class="mui-numbox-input" type="number" />
-                            <button class="mui-btn mui-numbox-btn-plus" type="button" @click="add(key)">+</button>
-                        </div>
+                        <span class="text value mui-badge mui-badge-primary">￥{{val[0]}}</span>
                     </li>
                 </ul>
             </div>
@@ -50,11 +45,8 @@ export default {
             }
             console.log(this.snacksList)
         },
-        add(key){
-            this.$store.commit('add',key)
-        },
-        decrease(key){
-            this.$store.commit('decrease',key)
+        goToInfo(key,val,type){
+            this.$router.push({ path: 'goodinfo', query:{ name: key,price:val[0],store:val[1],type:type}})
         }
     },
     mounted(){

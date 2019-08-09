@@ -7,15 +7,10 @@
             <div class="joyShop">
                 <input type="text" class="search" @keyup=sreach ref="search" placeholder="搜索你想要的物品">
                 <ul class="mui-table-view">
-                    <li class="mui-table-view-cell" v-for="(val,key) in joyList" :key="key">
+                    <li class="mui-table-view-cell" v-for="(val,key) in joyList" :key="key" @click="goToInfo(key,val,'joy')">
                         <span class="text">{{key}}</span>
-                        <span class="text value">￥{{val[0]}}</span>
                         <span class="text store">库存：{{val[1]}}</span>
-                        <div class="mui-numbox right" data-numbox-step='1' data-numbox-min='0' :data-numbox-max='val[1]'>
-                            <button class="mui-btn mui-numbox-btn-minus" type="button" @click="decrease(key)">-</button>
-                            <input class="mui-numbox-input" type="number" />
-                            <button class="mui-btn mui-numbox-btn-plus" type="button" @click="add(key)">+</button>
-                        </div>
+                        <span class="text value mui-badge mui-badge-primary">￥{{val[0]}}</span>
                     </li>
                 </ul>
             </div>
@@ -24,15 +19,19 @@
 </template>
 
 <script>
-import mui from '../lib/mui/js/mui.min.js'
 export default {
     data(){
         let joy = this.$store.state
         console.log(joy)
+        // var mask = mui.createMask()
+        // mask.show()
         return {
             allList: joy.JoyStore,
             joyList: {}
         }
+    },
+    components:{
+        
     },
     methods:{
         getJoyLIst(){
@@ -51,34 +50,31 @@ export default {
             }
             console.log(this.joyList)
         },
-        add(key){
-            this.$store.commit('add',['joy',key])
-        },
-        decrease(key){
-            this.$store.commit('decrease',['joy',key])
+        goToInfo(key,val,type){
+            this.$router.push({ path: 'goodinfo', query:{ name: key,price:val[0],store:val[1],type:type}})
         }
     },
     
     mounted(){
         this.getJoyLIst()
-        mui('.mui-numbox').numbox()
     }
 }
 </script>
 
 <style lang="scss" scoped>
     .joy-container{
+        position: relative;
         .joyShop{
             .text{
                 line-height: 40px;
             }
             .value{
                 margin-left: 5px;
-                font-size: 16px;
+                font-size: 14px;
             }
             .store{
                  margin-left: 5px;
-                font-size: 14px;
+                font-size: 12px;
             }
         }
         .right{
