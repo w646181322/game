@@ -46,6 +46,7 @@ export default {
         getSelectNum(name,count){
             console.log(name,count)
             this.$store.commit('addCarNum',[name,count])
+            this.list = this.$store.state.shopcar
             this.getNewPrice()
         },
         getNewPrice(){

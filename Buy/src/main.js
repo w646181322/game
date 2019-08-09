@@ -104,6 +104,7 @@ const store = new Vuex.Store({
           state.shopcar[item][1] = things[1]
         }
       }
+      console.log(things)
       state.shopcarnum = 0
       for(item in state.shopcar){
         state.shopcarnum += state.shopcar[item][1]
