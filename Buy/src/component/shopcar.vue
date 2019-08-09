@@ -23,7 +23,7 @@ export default {
         let state = this.$store.state
         return {
             allList: state.shopcar,
-            list: {},
+            list: {},// 对象 name: [price,num,store,type]
             price: 0
         }
     },
@@ -54,9 +54,13 @@ export default {
             }
         },
         buyRight(){
+            // [this.name,this.price,num,this.store,this.type]
+            // name: [price,num,store,type]
             if(this.list){
-                console.log(this.list)
-                this.$store.commit('clearShopCar',this.list)
+                for(item in this.list){
+                    this.$store.commit('addMyStore',[item,this.list[item][0],this.list[item][1],this.list[item][2],this.list[item][3]])
+                }
+                this.$store.commit('clearShopCar')
                 this.$router.push({name: 'backpackerThings'})
             }
             

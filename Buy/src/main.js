@@ -110,30 +110,7 @@ const store = new Vuex.Store({
       }
     },
     //things => name: [price,num,store,type]
-    clearShopCar(state,things){
-      console.log(things)
-      console.log(state.JoyStore[item][1])
-      for(item in things){
-        console.log(item)
-        console.log(things[item])
-        if(state.myStore[item]){
-          state.myStore[item] += things[item][1]
-          state.money -= things[item][0]*things[item][1]
-          if(things[3] == 'joy'){
-            state.JoyStore[item][1] -= things[item][1]
-          }else{
-            state.SnacksStore[item][1] -= things[item][1]
-          }
-        }else{
-          state.myStore[item] = [things[item][0],things[item][1]]
-          state.money -= things[item][0]*things[item][1]
-          if(things[3] == 'joy'){
-            state.JoyStore[item][1] -= things[item][1]
-          }else{
-            state.SnacksStore[item][1] -= things[item][1]
-          }
-        }
-      }
+    clearShopCar(state){
       state.shopcarnum = 0
       state.shopcar = {}
     }
