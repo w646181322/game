@@ -18,6 +18,7 @@
 
 <script>
 import numberbox from './numberbox.vue'
+import mui from '../lib/mui/js/mui.min.js'
 export default {
     data(){
         let state = this.$store.state
@@ -50,8 +51,9 @@ export default {
             this.getNewPrice()
         },
         getNewPrice(){
+            this.price = 0
             for(item in this.allList){
-                this.price += parseFloat(this.allList[item][0]) 
+                this.price += parseFloat(this.allList[item][0]*this.allList[item][1]) 
             }
         },
         buyRight(){
@@ -70,6 +72,7 @@ export default {
     mounted(){
         this.list = this.allList
         this.getNewPrice()
+        mui('.mui-numbox').numbox()
     }
 }
 </script>

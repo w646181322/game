@@ -1,8 +1,8 @@
 <template>
     <div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' :data-numbox-max='store'>
-        <button class="mui-btn mui-numbox-btn-minus" type="button" @click="changenum">-</button>
-        <input class="mui-numbox-input" type="number" ref="numberbox" :value="num"/>
-        <button class="mui-btn mui-numbox-btn-plus" type="button" @click="changenum">+</button>
+        <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+        <input class="mui-numbox-input" type="number" ref="numberbox" @change="changenum" :value="num"/>
+        <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
     </div>    
 </template>
 
@@ -18,7 +18,7 @@ export default {
     methods:{
         changenum(){
             this.count = parseInt(this.$refs.numberbox.value) 
-            console.log(typeof (this.count))
+            console.log(this.count)
             this.$emit('getCount',this.name,this.count)
         }
     },

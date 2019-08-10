@@ -9,7 +9,7 @@
             购买数量:
             <div class="mui-numbox" data-numbox-step='1' data-numbox-min='0' :data-numbox-max=store>
                 <button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
-                <input class="mui-numbox-input" type="number" />
+                <input class="mui-numbox-input" ref="numberbox" type="number" />
                 <button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
             </div>
         </div>
@@ -47,7 +47,8 @@ export default {
             this.$store.commit('addMyStore',[this.name,this.price,num,this.store,this.type])
         },
         add(){
-            var num = mui('.mui-numbox').numbox().getValue() 
+            var num = parseInt(this.$refs.numberbox.value)
+            console.log(this.$refs)
             this.$store.commit('addShopCar',[this.name,this.price,num,this.store,this.type])
         }
     },
