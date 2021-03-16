@@ -12,7 +12,7 @@ function random(name){
   boomBlock.clear()
   numBlock.clear()
   blankBlock.clear()
-  let n = (name == '#junior')?25:((name == '#middle')?70:100);
+  let n = (name == '#junior')?20:((name == '#middle')?60:90);
   let r = $(name).find('tr').length
   let c = $(name).find("td").length/r
   for(let i=0;i<n;){
@@ -28,7 +28,8 @@ function random(name){
     }
    
   }
-  console.log(boomBlock)
+  // console.log(boomBlock)
+  // boomboom()
   // 判断当前方块四周的炸弹数目
   for(let i=0;i<r;i++){
     for(let l=0;l<c;l++){
@@ -44,11 +45,13 @@ function random(name){
         (i+1)+':'+(l),
         (i+1)+':'+(l+1)
       ]
-      objs.forEach(obj=>{
-        if(boomBlock.has(obj)){
-          count++
-        }
-      })
+      if(!boomBlock.has(num)){
+        objs.forEach(obj=>{
+          if(boomBlock.has(obj)){
+            count++
+          }
+        })
+      }
       if(count!=0){
         numBlock.set(num,true)
         // console.log($(name).children()[0].rows[i].cells[l])
@@ -72,25 +75,40 @@ function star(name){
           let x = this.parentNode.rowIndex
           let y = this.cellIndex
           curblock = x+':'+y
-          // console.log(curblock)
+          // console.log(x,y)
           if($(this)[0].className.match('shadow')){$(this).removeClass('shadow')}
           
           // console.log(boomBlock)
           // console.log(boomBlock.has(curblock))
+          // 点中地雷
           if(boomBlock.has(curblock)){
             // console.log(1++)
             $(this).addClass('boom')
-            alert('Game over')
-          }else if(numBlock.has(curblock)){
+            boomboom()
+            setTimeout(() => {
+              alert('Game over')
+              $(name).find('td').unbind('click')
+              random(name)
+            },50)
+            // alert('Game over')
+          }else if(numBlock.has(curblock)){ // 点中数字方块
             $(this).children().css('display','block')
             block.set(curblock,true)
             if(block.size == ((name == '#junior')?81:((name == '#middle')?256:480))){
-              alert('win')
+              setTimeout(() => {
+                alert('win')
+                $(name).find('td').unbind('click')
+                random(name)
+              },50)
             }
-          }else{
+          }else{ // 点中空白方块
             block.set(curblock,true)
             if(block.size == ((name == '#junior')?81:((name == '#middle')?256:480))){
-              alert('win')
+              setTimeout(() => {
+                alert('win')
+                $(name).find('td').unbind('click')
+                random(name)
+              },50)
             }
             checkAround(x,y)
           }
@@ -101,12 +119,16 @@ function star(name){
 
 // 检查四周方块有没有空白格，有则打开
 function checkAround(x,y){
-  console.log(x+':'+y)
+  // console.log(x+':'+y)
   let objs = [
+    (x-1)+':'+(y-1),
     (x-1)+':'+y,
+    (x-1)+':'+(y+1),
     x+':'+(y-1),
     x+':'+(y+1),
+    (x+1)+':'+(y-1),
     (x+1)+':'+y,
+    (x+1)+':'+(y+1),
   ]
 
   objs.forEach(obj=>{
@@ -129,6 +151,13 @@ function checkAround(x,y){
             }
             checkAround(a,b)
           }   
+        }else{
+          block.set(obj,true)
+          $(name).children()[0].rows[a].cells[b].className = ''
+          $(name).find('tr').eq(a).find('td').eq(b).find('span').css('display','block')
+            if(block.size == ((name == '#junior')?81:((name == '#middle')?256:480))){
+              alert('win')
+            }
         }
       }
     } 
@@ -140,7 +169,7 @@ random(name)
 
 $('input').bind('click',function(){
   let curname = this.value
-  console.log(curname)
+  // console.log(curname)
   if(curname != 'New Game'){
     name = '#'+curname
     random(name)
@@ -158,4 +187,15 @@ function clear(name){
     $(name).children()[0].rows[a].cells[b].innerHTML = ''
   }
 
+}
+
+// 点中地雷
+function boomboom(){
+  // console.log('over',boomBlock)
+  boomBlock.forEach((val,key) => {
+    let x = key.split(":")[0]
+    let y = key.split(":")[1]
+    // console.log(x,y)
+    $(name).find('tr').eq(x).find('td').eq(y).removeClass('shadow').addClass('boom')
+  })
 }
