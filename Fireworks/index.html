@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style>
+        *{
+            padding: 0;
+            margin: 5px;
+        }
         canvas{
             background: black;
         }
@@ -22,11 +26,11 @@
         let speed = 30
         let fire = []
         let boom = []
-        let cw = window.screen.availWidth
-        let ch = window.screen.availHeight
+        let cw = 1000
+        let ch = 700
         // console.log(window.screen.availHeight)
         let color = ["red","orange","yellow","green","blue","cyan","purple"]
-
+        let mousemovecounttime = 0;
         c.width = cw
         c.height = ch
 
@@ -34,14 +38,35 @@
             document.addEventListener("mousedown",function(e){
                 let x0 = e.clientX
                 let y0 = e.clientY
-                console.log(x0,y0)
+                // console.log(x0,y0)
                 let pos = (x0>(cw/2))? 1 : ((x0 == cw/2)? 0 : -1)
                 let co = color[Math.floor(Math.random()*7)]
                 boom.push({x:x0,y:y0}) // 烟花爆炸的位置
                 fire.push({x:cw/2,y:ch,time:0,pos:pos,color:co}) // 烟花的当前位置
-                console.log(fire.length)
+                // console.log(fire.length)
                 // move()
             })
+            document.onmousemove = function(e){
+                let mx = e.clientX
+                let my = e.clientY
+                if(mousemovecounttime == 15){
+                    let pos = (mx>(cw/2))? 1 : ((mx == cw/2)? 0 : -1)
+                    let co = color[Math.floor(Math.random()*7)]
+                    boom.push({x:mx,y:my}) // 烟花爆炸的位置
+                    fire.push({x:cw/2,y:ch,time:0,pos:pos,color:co}) // 烟花的当前位置
+                    mousemovecounttime = 0;
+                }
+                mousemovecounttime++
+            }
+            setInterval(function(){
+                let rx = Math.floor(Math.random()*1000)
+                let ry = Math.floor(Math.random()*300)
+                // console.log(rx,ry)
+                let pos = (rx>(cw/2))? 1 : ((rx == cw/2)? 0 : -1)
+                let co = color[Math.floor(Math.random()*7)]
+                boom.push({x:rx,y:ry}) // 烟花爆炸的位置
+                fire.push({x:cw/2,y:ch,time:0,pos:pos,color:co}) // 烟花的当前位置
+            },250)
         }
 
         // 返回发射点到目标点的角度
@@ -60,7 +85,7 @@
             for(let i=0;i<fire.length;i++){
                 var star = fire[i]
                 var target = boom[i]
-                console.log(fire)
+                // console.log(fire)
                 var arc = angle(star,target)
                 var dis = distance(star,target)
                 star.time += 1
@@ -77,7 +102,7 @@
                 ctx.lineWidth = 2
                 // ctx.strokeStyle = gradient
                 ctx.strokeStyle = star.color
-                console.log(cx,cy)
+                // console.log(cx,cy)
                 ctx.lineJoin="round"
                 ctx.stroke()
                 ctx.closePath()
@@ -94,7 +119,7 @@
         }
 
         function particle(obj){
-            console.log("boom")
+            // console.log("boom")
             var bm = obj
             let x0 = bm[0].x
             let y0 = bm[0].y
@@ -110,8 +135,8 @@
                 // console.log(bm.x)
                 lizi.push({tx:x0+x,ty:y0+y,sx:x0,sy:y0,time:0,len:l,arc:arc,speed:speed})
             }
-            console.log(lizi)
-            console.log(11)
+            // console.log(lizi)
+            // console.log(11)
             var timeID = setInterval(function(){
                 for(let i=0;i<lizi.length;i++){
                     var lz = lizi[i]
@@ -127,7 +152,7 @@
                     ctx.lineWidth = 2
                     ctx.strokeStyle = bm[0].color
                     ctx.stroke()
-                    console.log(22)
+                    // console.log(22)
                     if(len >= dis){
                         lizi.splice(i,1)
                     }else{
