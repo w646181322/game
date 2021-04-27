@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <title>Document</title>
+  <style>
+    body{
+      background: #fdfcf8;
+    }
+    .box{
+      margin: 10px auto;
+    }
+    a{
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div>
+      <h5>js</h5>
+      <div v-for='(item,index) in jsquestion' class="box">
+        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <div>
+          <textarea cols=70></textarea>
+        </div>
+        <div v-html='item.a' class="answers" style="display: none;"></div>
+      </div>
+    </div>
+
+    <div>
+      <h5>css</h5>
+      <div v-for='(item,index) in cssquestion' class="box">
+        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <div>
+          <textarea cols=70></textarea>
+        </div>
+        <div v-html='item.a' class="answers" style="display: none;"></div>
+      </div>
+    </div>
+
+    <div>
+      <h5>es6</h5>
+      <div v-for='(item,index) in es6question' class="box">
+        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <div>
+          <textarea cols=70></textarea>
+        </div>
+        <div v-html='item.a' class="answers" style="display: none;"></div>
+      </div>
+    </div>
+
+    <div>
+      <h5>浏览器</h5>
+      <div v-for='(item,index) in browser' class="box">
+        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <div>
+          <textarea cols=70></textarea>
+        </div>
+        <div v-html='item.a' class="answers" style="display: none;"></div>
+      </div>
+    </div>
+
+    <div>
+      <h5>vue</h5>
+      <div v-for='(item,index) in vue' class="box">
+        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <div>
+          <textarea cols=70></textarea>
+        </div>
+        <div v-html='item.a' class="answers" style="display: none;"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        jsquestion: [{
+          q: '怎么判断数据类型',
+          a: `1.typeof。 可以检测出string、number、function、undefined、boolean,但无法判断出object中的对象、数组等方法。typeof null 也等于 object
+              <br />2.instanceof。 检测对象数据类型（js中一切接对象） 表示当左侧为右侧的实例时返回true ( a instanceof String)
+              <br />3.Object.prototype.toString.call()。 能准确判断类型 (Object.prototype.toString.call(a) === '[object String]')
+              <br />4.constructor。 为实例原型上的方法，指向他的构造函数 ( a.constructor === Array)
+              <br />5.jQuery.type()。 函数用于确定JavaScript内置对象的类型，并返回小写形式的类型名称`
+        },{
+          q: '闭包',
+          a: `定义：当一个嵌套的内部函数引用了外部函数的变量或者函数时，外部函数在执行时就产生了闭包。
+              <br />闭包指的是：能够访问另一个函数作用域的变量的函数。清晰的讲：闭包就是一个函数，这个函数能够访问其他函数的作用域中的变量
+              <br />闭包的三个特性： 
+              <br />1.函数嵌套函数
+              <br />2.函数内部可以引用外部的参数和变量
+              <br />3.参数和变量不会被垃圾回收机制回收`
+        },{
+          q: 'callee,caller,call,apply和bind',
+          a: `callee: callee是一个指针，指向拥有这个argument对象的函数,callee 属性是 arguments 对象的一个成员，它表示对函数对象本身的引用
+              <br />caller: caller这个属性保存着调用当前函数的函数的引用，如果是在全局作用域中调用当前函数，它的值为null。
+              <br />apply是改变函数执行的作用域的，说的通俗点就是改变函数体内this的指向，apply第二个参数可以是Array实例，也可以是argument对象
+              <br />call也是改变函数执行的作用域的，和apply一样，不同的是call的接受参数必须逐个列出来
+              <br />这个方法会创建一个函数的实例，其this值会被绑定到传给bind()函数的值`
+        },{
+          q: '深拷贝和浅拷贝',
+          a: `浅拷贝：就是简单的复制,就相当于把一个对象中的所有的内容,复制一份给另一个对象。
+              <br />深拷贝: 把一个对象的属性和方法一个个找出来，在另一个对象中开辟对应的空间，一个个存储到另一个对象中。
+              <br />实现深拷贝的方法:
+              <br />1.通过 JSON 对象实现深拷贝 ( _Obj = JSON.stringify(obj), cloneObj = JSON.parse(_Obj) )
+              <br />2.通过jQuery的extend方法实现深拷贝 ( newArray = $.extend([deep],target,object1[,objectN]) 
+              <br />      deep表示为true是深拷贝。 target目标对象，其他对象的成员属性将被加到该对象上。 object1,objectN可选，被合并拷贝的对象
+              <br />3.Object.assign() 当对象中只有一级属性，没有二级属性的时候，此方法为深拷贝，但是对象中有对象的时候，此方法，在二级属性以后就是浅拷贝 ( obj = Object.assign({},obj) )
+              <br />4.使用递归实现
+              <div><img src='./deepclone.jpg'></div>`
+        },{
+          q: '防抖(debounce)和节流(throttle)',
+          a: `防抖：当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次，如果设定时间到来之前，又触发了事件，就重新开始延时
+              <br />节流：当持续触发事件时，保证在一定时间内只调用一次事件处理函数，意思就是说，假设一个用户一直触发这个函数，且每次触发小于既定值，函数节流会每隔这个时间调用一次
+              <br />用一句话总结防抖和节流的区别：防抖是将多次执行变为最后一次执行，节流是将多次执行变为每隔一段时间执行
+              <br />实现函数节流我们主要有两种方法：时间戳和定时器`
+        },{
+          q: '重绘和重排(回流)',
+          a: `浏览器解析页面的过程
+              <br />首先加载dom结构形成dom树-->然后加载css-->dom树和css结合形成render树 -->渲染页面
+              <br />当改变样式（不改变大小）的时候，从render树开始重新开始渲染页面，这就是重绘
+              <br />当改变dom结构的时候，会从dom树开始从新渲染页面，这就是重排
+              <br />重排和重绘都会影响性能
+              <br />解决方案:
+              <br />1.如果是在页面的末尾修改dom直接用字符串拼接到原有结构的后面即可
+              <br />2.避免多次修改dom结构或者css,集中处理，只引发一次重绘或者重排`
+        },{
+          q: 'js设计模式',
+          a: `1.工厂模式：工厂模式定义一个用于创建对象的接口，这个接口由子类决定实例化哪一个类。该模式使一个类的实例化延迟到了子类。而子类可以重写接口方法以便创建的时候指定自己的对象类型。
+              &nbsp&nbsp工厂模式是用来创建对象的一种最常用的设计模式。我们不暴露创建对象的具体逻辑，而是将逻辑封装在一个函数中，那么这个函数就可以被视为一个工厂。
+              <br />2..单例模式:限制类实例化次数只能一次，一个类只有一个实例，并提供一个访问它的全局访问点。
+              <br />3.原型模式: 是指用原型实例指向创建对象的种类，并且通过拷贝这些原型创建新的对象。
+              <br />4.适配器模式：将一个类的接口转换成客户希望的另外一个接口，使得原本由于接口不兼容而不能一起工作的那些类可以一起工作。
+              <br />5.代理模式: 为其他对象提供一种代理以控制对这个对象的访问。在某些情况下，一个对象不适合或者不能直接引用另一个对象，而代理对象可以在客户端和目标对象之间起到中介的作用。
+              <br />6.发布-订阅模式： 基于一个事件（主题）通道，希望接收通知的对象 Subscriber 通过自定义事件订阅主题，被激活事件的对象 Publisher 通过发布主题事件的方式通知各个订阅该主题的 Subscriber 对象。
+              <br />7.策略模式：定义一系列的算法，把它们一个个封装起来，并使它们可以替换。
+              <br />8.迭代器模式：迭代器模式是指一种顺序访问一个聚合对象中的各个元素，而不需要暴露该对象的内部表示。迭代器模式可以把迭代的过程从业务逻辑中分离出来，在使用迭代器模式之后，
+              &nbsp&nbsp即使不关心对象的内部构造，也可以按顺序访问其中的每个元素。
+              <br />9.观察者模式：定义了对象间一种一对多的依赖关系（一个目标者，即：被观察者，多个观察者），当目标对象 Subject 的状态发生改变时，所有依赖它的对象 Observer 都会得到通知。
+              <br />10.命令模式：请求以命令的形式包裹在对象中，并传给调用对象。调用对象寻找可以处理该命令的合适的对象，并把该命令传给相应的对象，该对象执行命令。
+              <br />11.组合模式：又叫 “部分整体” 模式，将对象组合成树形结构，以表示 “部分-整体” 的层次结构。通过对象的多态性表现，使得用户对单个对象和组合对象的使用具有一致性。
+              <br />12.建造者模式：是将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。
+              <div> <a href='https://blog.csdn.net/weixin_46124214/article/details/105066290' target='_blank' style='font-size:12px'>参考链接 </div>`
+        },{
+          q: '原型链',
+          a: `1、原型链是JS特有的一种继承机制
+              <br />2.所有原型链的终点都是 Object 函数的 prototype 属性,指向最终顶端 null
+              <br />3、每一个构造函数都拥有一个 prototype 属性，此属性指向一个对象，也就是原型对象，原型对象默认拥有一个 constructor 属性，指向指向它的那个构造函数
+              <br />   每个对象都拥有一个隐藏的属性 __ proto __，指向它的原型对象
+              <br />4、应用场景：继承
+              <br />5、优点：把相同或类似的方法写在原型上，方便实例化对象复用
+              <div><img src='./yuanxinglian.jpg'></div>`
+        },{
+          q: '跨域的方式',
+          a: `跨域是指一个域下的文档或脚本试图去请求另一个域下的资源，这里跨域是广义的
+              <br />同源策略/SOP（Same origin policy）是一种约定，由Netscape公司1995年引入浏览器，它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，浏览器很容易受到XSS、CSFR等攻击。
+              <br />&nbsp&nbsp&nbsp&nbsp所谓同源是指"协议+域名+端口"三者相同，即便两个不同的域名指向同一个ip地址，也非同源。
+              <br />跨域的方法:
+              <br />1.通过jsonp跨域:通常为了减轻web服务器的负载，我们把js、css，img等静态资源分离到另一台独立域名的服务器上，在html页面中再通过相应的标签从不同域名下加载静态资源，而被浏览器允许，
+              <br />&nbsp&nbsp&nbsp&nbsp基于此原理，我们可以通过动态创建script，再请求一个带参网址实现跨域通信。 
+              <br />&nbsp&nbsp&nbsp&nbsp缺点：jsonp缺点：只能实现get一种请求
+              <br />2.document.domain + iframe 跨域:此方案仅限主域相同，子域不同的跨域应用场景.
+              <br />&nbsp&nbsp&nbsp&nbsp实现原理：两个页面都通过js强制设置document.domain为基础主域，就实现了同域。
+              <br />3.location.hash + iframe 跨域
+              <br />&nbsp&nbsp&nbsp&nbsp实现原理： a欲与b跨域相互通信，通过中间页c来实现。 三个页面，不同域之间利用iframe的location.hash传值，相同域之间直接js访问来通信。
+              <br />4.window.name + iframe跨域
+              <br />&nbsp&nbsp&nbsp&nbspwindow.name属性的独特之处：name值在不同的页面（甚至不同域名）加载后依旧存在，并且可以支持非常长的 name 值(2MB)
+              <br />5.postMessage跨域
+              <br />6.跨域资源共享（CORS）
+              <br />7.Nodejs中间件代理跨域
+              <br />8.WebSocket协议跨域
+              <br />9.nginx代理跨域
+              <div><a href="https://www.cnblogs.com/ly1368489670/p/13924122.html" style="font-size:12px">跨域方式参考连接</a>  
+                <a href='http://www.ruanyifeng.com/blog/2016/04/cors.html' style="font-size:12px">跨域资源共享 CORS 详解</a></div>`
+        },{
+          q: 'EventLoop',
+          a: `JavaScript语言的一大特点就是单线程，也就是说，同一个时间只能做一件事。单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。
+              <br />如果前一个任务耗时很长，后一个任务就不得不一直等着。
+              <br />如果排队是因为计算量大，CPU忙不过来，倒也算了，但是很多时候CPU是闲着的，因为IO设备（输入输出设备）很慢（比如Ajax操作从网络读取数据），
+              <br />不得不等着结果出来，再往下执行。
+              <br />JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。
+              <br />于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，
+              <br />才能执行后一个任务；异步任务指的是，不进入主线程、而进入"任务队列"（task queue）的任务，只有"任务队列"通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。
+              <br />具体来说，异步执行的运行机制如下。（同步执行也是如此，因为它可以被视为没有异步任务的异步执行。）
+              <br />（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。
+              <br />（2）主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件。
+              <br />（3）一旦"执行栈"中的所有同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+              <br />（4）主线程不断重复上面的第三步。
+              <div><img src="./EventLoop.jpg"></div>`
+        }],
+        cssquestion: [{
+          q: 'css盒模型',
+          a: `W3C标准盒模型(content-box)：属性width,height只包含内容content，不包含border和padding
+              <br />IE盒模型(border-box)：属性width,height包含border和padding，指的是content+padding+border`
+        },{
+          q: 'flex',
+          a: `容器属性： 
+              <br />flex-direction： row | row-reverse | colomn | colomn-reverse 决定主轴方向
+              <br />flex-wrap: nowrap | wrap | wrap-reverse 是否换行
+              <br />flex-flow: <flex-direction> || <flex-wrap>
+              <br />justify-content: flex-start | flex-end | center | space-between | space-around 定义了项目在主轴上的对齐方式
+              <br />align-items: flex-start | flex-end | center | baseline | stretch 定义了项目在交叉轴上如何对其
+              <br />align-content: flex-start | flex-end | center | space-between | space-around | stretch 定义了多根轴线的对其方式,若只有一根轴线则该属性无效
+              <br />项目属性：
+              <br />order: <integer> 定义项目的排列顺序，数值越小，排列越前
+              <br />flex-grow: <number> 定义项目的放大比例,默认为0，即如果存在剩余空间，也不放大
+              <br />flex-shrink: <number> 定义项目的缩小比例，默认为1,即如果空间不足，该项目将缩小
+              <br />flex-basis: <length> 定义了在分配多余空间之前，项目占据的主轴空间。默认值为auto，即项目本来大小
+              <br />flex: [<flex-grow> <flex-shrink> <flex-basis>] flex为三个属性的简写，默认为 0 1 auto
+              <br />align-self: auto | flex-start | flex-end | center | baseline | stretch 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性`
+        },{
+          q: 'grid(栅格布局)',
+          a: `<div><a href='http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html' style='font-size:12px;'>参考链接</div>`
+        },{
+          q: 'BFC(Block Formatting Context)和IFC(inline Formatting Context)',
+          a: `BFC(块级格式化上下文):
+              <br />1.内部的盒子会在垂直的方向，一个个地放置
+              <br />2.盒子垂直方向的距离由margin决定，属于同一个BFC的两个相邻Box的上下margin会发生重叠
+              <br />3.每个元素的左边，与包含的盒子的左边相接触，即使存在浮动元素也是如此
+              <br />4.BFC的区域不会与float重叠
+              <br />5.BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之也如此
+              <br />6.计算BFC的高度时，浮动元素也参与计算
+              <br />触发条件：
+              <br />1.float的属性不为none
+              <br />2.postition为absolute或fixed
+              <br />3.display为inline-block、table-cell、table-caption、flex
+              <br />4.overflow不为visible
+              <br />IFC(行级格式化上下文)：
+              <br />1.内部的盒子会在水平方向，一个个地放置
+              <br />2.IFC的高度，由里面最高盒子的高度决定
+              <br />3.当一行不够放置的时候回自动切换到下一行`
+        },{
+          q: '水平垂直居中',
+          a: `1.绝对定位
+              <br />position:absolute;
+              <br />top:50%;
+              <br />left:50%
+              <br />transform:translate(-50%, -50%)
+              <br />2.flex
+              <br />display:flex;
+              <br />justify-content: center;
+              <br />align-items: center;
+              <br />3.table-cell
+              <br />display: table-cell;
+              <br />vertical-align: middle;
+              <br />text-align: center;`
+        },{
+          q: '文字超出显示省略号',
+          a: `单行：
+              <br />overflow: hidden;
+              <br />text-overflow: ellipsis;
+              <br />white-space: nowrap;
+              多行：(因使用了WebKit的CSS扩展属性，该方法适用于WebKit浏览器及移动端)
+              <br />display: -webkit-box;
+              <br />-webkit-box-orient: vertical;
+              <br />-webkit-line-clamb: 3;
+              <br />overflow: hidden;`
+        },{
+          q: '清楚浮动',
+          a: `1.在浮动元素后面添加一个空元素样式为clear:both
+              <br />2.给浮动元素的容器添加overflow:hidden/auto 使浮动元素又回到了容器层，把容器高度撑起，达到了清理浮动的效果。可以清除浮动.另外在 IE6 中还需要触发 hasLayout ，例如为父元素设置容器宽高或设置 zoom:1
+              <br />3.给浮动元素的容器也添加上浮动属性即可清除内部浮动，但是这样会使其整体浮动，影响布局
+              <br />4.给浮动元素的容器添加一个clearfix的class，然后给这个class添加一个:after伪元素实现元素末尾添加一个看不见的块元素（Block element）清理浮动`
+        },{
+          q: 'css优化技巧',
+          a: `1.合理使用选择器
+              <br />2.减少DOM操作，减少重绘和重排
+              <br />3.去除无效的选择器
+              <br />4.文件压缩
+              <br />5.异步加载文件
+              <br />6.减少@import的使用`
+        },{
+          q: 'px/em/rem/vh/vw',
+          a: `px: 像素(Pixel)，相对长度单位。像素px是相对于显示器屏幕的分辨率而言的
+              <br />em: em是相对长度单位。相当于当前父元素的字体尺寸，如未设置，则相对于浏览器的默认字体尺寸
+              <br />rem: rem是css3新增的一个相对单位。使用rem为元素设定字体大小时，仍然是相对大小，但相对的只是HTML根元素
+              <br />vh： css3新单位，view height的简写，是指可视窗口的高度，假如高度是1200px的话，那10vh就是120px
+              <br />vw： css3新单位，view width的简写，是指可视窗口的宽度，假如宽度是1200px的话，那10vw就是120px`
+        }],
+        es6question: [{
+          q: '箭头函数和普通函数的区别',
+          a: `主要区别在this的指向:
+              <br />1.普通函数的this指向调用它的那个对象。this总是代表它的直接调用者,没找到直接调用者,则this指的是 window(匿名函数,定时器中的函数,由于没有默认的宿主对象,所以默认this指向window)。
+              <br />2.箭头函数不能作为构造函数，不能使用new，没有this，arguments箭头函数，箭头函数的this永远指向其上下文的this，任何方法都改变不了其指向，如call()，bind()，apply()
+              <br />（或者说箭头函数中的this指向的是定义时的this，而不是执行时的this）
+              <br />箭头函数中this对象，就是定义时所在的对象，而不是使用时所在的对象，箭头函数中没有自己的this的，而箭头函数会默认使用父级的this。
+              <br />首先到它的父作用域找，如果父作用域还是箭头函数，那么接着向上找，直到找到我们要的this指向`
+        },{
+          q: 'es6的新特性',
+          a: ``
+        },{
+          q: 'promise',
+          a: ``
+        }],
+        browser: [{
+          q: '强缓存和协商缓存',
+          a: `强缓存
+              <br />强是强制的意思，当浏览器去请求文件时，服务端就在response header里面对该文件做了缓存配置(缓存的时间，缓存类型)，
+              <br />出现在 response header 的 cache-control，常见设置是 max-age,public,private,no-cache,no-store等
+              <br />cache-control: max-age=xxx,public/private/immutable  缓存有效时间xxx,客户端和代理服务器都可缓存/客户端可缓存,代理服务器不缓存/客户端可缓存
+              <br />cache-control: no-cache/no-store 跳过设置强缓存但不妨碍设置协商缓存/不缓存
+              <br />协商缓存
+              <br />客户端请求时发现强缓存设置的时间过期后，就会去请求服务器，这就是协商缓存
+              <br />设置线上缓存，response header里设置
+              <br />etag: '5c20abbd-e2e8'  每个文件有一个，即文件hash
+              <br />last-modified: Mon ,24 dec 2020 09:49:49 GMT  文件修改时间，精确到秒
+              <br />协商过程： 发请求-->看资源是否过期-->过期-->请求服务器-->服务器对比资源是否真的过期-->没过期-->返回304状态码-->客户端用缓存的老资源`
+
+        },{
+          q: 'cookie、session和token',
+          a: `Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。
+              <br />session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。
+              <br />token是服务端生成的一串字符串，以作客户端进行请求的一个令牌，当第一次登录后，服务器生成一个token并返回给客户端，以后客户端只需要带上这个token来请求数据即可。
+              <br />cookie与session的区别：
+              <br />1.cookie数据存放在客户端上，session数据存放在服务器上
+              <br />2.cookie不是很安全，别人可以分析存放在本地的cookie并进行欺骗，考虑到安全应当使用session
+              <br />3.session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能考虑到减轻服务器性能方面，应当使用COOKIE
+              <br />4.单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie
+              <br />5.将登陆信息等重要信息存放为SESSION，其他信息如果需要保留，可以放在COOKIE中
+              <br />session与token的区别:
+              <br />1.session: 我发给你一张身份证，但只是一张写着身份证号码的纸片。你每次来办事，我去后台查一下你的 id 是不是有效。
+              <br />2.token: 我发给你一张加密的身份证，以后你只要出示这张卡片，我就知道你一定是自己人。`
+        },{
+          q: 'sessionstorage和localstorage',
+          a: `<div><img src="./cookie.jpg"></div>
+              可通过window.sessionstorage和window.localstorage在js中操作这两个对象
+              <br />sessionstorage.setitem/getitem/removeitem
+              <br />localstorage.setitem/getitem/removeitem`
+        },{
+          q: 'http 三次握手 四次挥手',
+          a: `三次握手
+              <br />1.客户端向服务端发送一个数据包，告诉服务器需要建立连接
+              <br />2.服务端收到客户端发送的数据包之后，会返回一个数据包，通知客户端，我已经收到你的连接请求
+              <br />3.客户端收到服务端返回的信息后，知道服务端已经准备好建立连接，但是还需要在发送一个数据包给服务端用于告诉服务端我已经收到你的回复。
+              <br />为什么一定要三次？
+              <br />主要还是因为存在数据可能丢失的问题，也就是说不管是客户端或者服务端，都不能确定自己发出的信息对方有没有正常接收到，所以需要对方发送一个回复信息。用于确定自己发出的信息已经被对方正常接收。
+              <br />四次挥手
+              <br />1.第一次挥手：client发送一个FIN，用来关闭client到server的数据传输，client进入FIN_WAIT_1状态；
+              <br />2.第二次挥手：server收到FIN后，发送一个ACK给client，确认序号为收到序号+1，server进入CLOSE_WAIT状态；
+              <br />3.第三次挥手：server发送一个FIN，用来关闭server到client的数据传输，server进入LAST_ACK状态
+              <br />4.第四次挥手：client收到FIN后，client进入TIME_WAIT状态，接着发送一个ACK给server，确认序号为收到序号+1，server进入CLOSE状态。
+              <br />为什么关闭连接需要四次挥手？
+              <br />这是因为当收到对方的FIN报文时，仅仅表示对方不再发送数据了，但是还能接收数据。己方也未必全部将数据都发送给对方了，所以己方可以立即CLOSE，也可以发送一个数据给对方后，再发送FIN报文给对方表示同意现在关闭连接，因此，己方ACK和FIN一般都会分开发送
+              <div><a href="https://zhuanlan.zhihu.com/p/143064192?from_voters_page=true" style="font-size:12px">参考连接</div>`
+        },{
+          q: 'BOM对象模型',
+          a: `screen、window、navigator、location、document、history`
+        },{
+          q: 'Location对象属性',
+          a: `1.hash 设置或返回从#开始的URL
+              <br />2.host 设置或返回主机名和当前URL的端口号
+              <br />3.hostname 设置或返回当前URL的主机名
+              <br />4.href 设置或返回完整的URL
+              <br />5.pathname 设置或返回当前URL的路径部分
+              <br />6.port 设置或返回当前URL的端口号
+              <br />7.search 设置或返回从？开始的URL(查询部分)`
+        }],
+        vue: [{
+          q: 'v-if和v-show',
+          a: 'v-if是决定该节点是否渲染，v-show是用样式决定显隐'
+        },{
+          q: 'vue常用指令',
+          a: `v-for、v-on、v-bind、v-if、v-show、v-model`
+        },{
+          q: '生命周期',
+          a: `beforeCreate;
+              <br />created;
+              <br />beforeMount;
+              <br />mounted;
+              <br />beforeUpdate;
+              <br />updated;
+              <br />beforeDestroy;
+              <br />destroyed;`
+        },{
+          q: '双向绑定原理',
+          a: `1.vue 双向数据绑定是通过 数据劫持 结合 发布订阅模式的方式来实现的， 也就是说数据和视图同步，数据发生变化，视图跟着变化，视图变化，数据也随之发生改变；
+              <br />2.核心：关于VUE双向数据绑定，其核心是 Object.defineProperty()方法；
+              <br />3.介绍一下Object.defineProperty()方法
+              <br />&nbsp&nbsp（1）Object.defineProperty(obj, prop, descriptor) ，这个语法内有三个参数，分别为 obj （要定义其上属性的对象） prop （要定义或修改的属性） descriptor （具体的改变方法）
+              <br />&nbsp&nbsp（2）简单地说，就是用这个方法来定义一个值。当调用时我们使用了它里面的get方法，当我们给这个属性赋值时，又用到了它里面的set方法;
+              <div><a href='https://www.jianshu.com/p/e7ebb1500613' style='font-size:12px'>参考连接1</a> <a href="https://www.jianshu.com/p/1b75a3623d0d" style='font-size:12xp;'>参考连接2</a></div>`
+        },{
+          q: '组件传值',
+          a: `父子组件,子组件靠props接收父组件的传值，用$emit出发事件来传值给父组件
+              <br />兄弟组件传值，通过bus，new一个vue实例(bus)做连接两个组件的中央事件总线，在都通过bus.$emit(fuc,msg)来传递,通过bus.$on(fuc,fuc(msg))监听事件来处理传递值
+              <br />//bus实例
+              <br />import Vue from 'vue'
+              <br />export default new Vue()
+              `
+        },{
+          q: 'nextTick()',
+          a: `1.异步说明
+              <br />&nbsp&nbsp&nbsp&nbsp Vue 实现响应式并不是数据发生变化之后 DOM 立即变化，而是按一定的策略进行 DOM 的更新。
+              <br />2.事件循环说明
+              <br />&nbsp&nbsp&nbsp&nbsp 简单来说，Vue在修改数据后，视图不会立刻更新，而是等同一事件循环中的所有数据变化完成之后，再统一进行视图更新。
+              <br />由于Vue DOM更新是异步执行的，即修改数据时，视图不会立即更新，而是会监听数据变化，并缓存在同一事件循环中，等同一数据循环中的所有数据变化完成之后，再统一进行视图更新。
+              <br />&nbsp&nbsp&nbsp&nbsp为了确保得到更新后的DOM，所以设置了 Vue.nextTick()方法。
+              <div><a href="https://zhuanlan.zhihu.com/p/174396758" style='font-size:12px;'>参考连接</a></div>`
+        }]
+      },
+      methods: {
+        showans(e) {
+          console.log(e.target)
+          $(e.target).parents(".box").find('.answers').slideToggle()
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
