@@ -13,7 +13,11 @@
     }
 
     .box {
-      margin: 10px auto;
+      margin: 25px auto;
+    }
+    .question{
+      font-size: 18px;
+      font-weight: bold;
     }
 
     a {
@@ -29,55 +33,55 @@
     <div>
       <h5>js</h5>
       <div v-for='(item,index) in jsquestion' class="box">
-        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
-        <div>
+        <div class="question">{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <!-- <div>
           <textarea cols=50></textarea>
-        </div>
-        <div v-html='item.a' class="answers" style="display: none;"></div>
+        </div> -->
+        <div v-html='item.a' class="answers" style="display: block;"></div>
       </div>
     </div>
 
     <div>
       <h5>css</h5>
       <div v-for='(item,index) in cssquestion' class="box">
-        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
-        <div>
+        <div class="question">{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <!-- <div>
           <textarea cols=50></textarea>
-        </div>
-        <div v-html='item.a' class="answers" style="display: none;"></div>
+        </div> -->
+        <div v-html='item.a' class="answers" style="display: block;"></div>
       </div>
     </div>
 
     <div>
       <h5>es6</h5>
       <div v-for='(item,index) in es6question' class="box">
-        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
-        <div>
+        <div class="question">{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <!-- <div>
           <textarea cols=50></textarea>
-        </div>
-        <div v-html='item.a' class="answers" style="display: none;"></div>
+        </div> -->
+        <div v-html='item.a' class="answers" style="display: block;"></div>
       </div>
     </div>
 
     <div>
       <h5>浏览器</h5>
       <div v-for='(item,index) in browser' class="box">
-        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
-        <div>
+        <div class="question">{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <!-- <div>
           <textarea cols=50></textarea>
-        </div>
-        <div v-html='item.a' class="answers" style="display: none;"></div>
+        </div> -->
+        <div v-html='item.a' class="answers" style="display: block;"></div>
       </div>
     </div>
 
     <div>
       <h5>vue</h5>
       <div v-for='(item,index) in vue' class="box">
-        <div>{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
-        <div>
+        <div class="question">{{index+1}}. {{item.q}} <span style="color: red;cursor: pointer;font-size: 12px;" @click='showans'>查看解析</span></div>
+        <!-- <div>
           <textarea cols=50></textarea>
-        </div>
-        <div v-html='item.a' class="answers" style="display: none;"></div>
+        </div> -->
+        <div v-html='item.a' class="answers" style="display: block;"></div>
       </div>
     </div>
 
